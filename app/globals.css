@@ -1,26 +1,145 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
+@theme {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--surface);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-text-primary: var(--text-primary);
+  --color-text-muted: var(--text-muted);
+  --color-border: var(--border);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: #F8FAFC;
+  --surface: #FFFFFF;
+  --primary: #6366F1;
+  --secondary: #8B5CF6;
+  --text-primary: #0F172A;
+  --text-muted: #64748B;
+  --border: #E2E8F0;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+.dark {
+  --background: #0A0F1E;
+  --surface: #111827;
+  --primary: #818CF8;
+  --secondary: #A78BFA;
+  --text-primary: #F1F5F9;
+  --text-muted: #94A3B8;
+  --border: #1E293B;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--background);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  body {
+    @apply bg-background text-text-primary min-h-screen antialiased;
   }
 }
 
-body {
+/* Custom Signature Animated Gradient Classes */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Signature text gradient effect */
+.animate-signature-text {
+  background: linear-gradient(135deg, #6366F1, #8B5CF6, #6366F1);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 6s ease infinite;
+}
+
+.dark .animate-signature-text {
+  background: linear-gradient(135deg, #818CF8, #A78BFA, #818CF8);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 6s ease infinite;
+}
+
+/* Signature border shifting animation */
+.signature-border {
+  position: relative;
+}
+
+.signature-border::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right, #6366F1, #8B5CF6);
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+.dark .signature-border::after {
+  background: linear-gradient(to right, #818CF8, #A78BFA);
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+/* Monogram logo border animation */
+.monogram-border {
+  background: linear-gradient(to right, #6366F1, #8B5CF6);
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+.dark .monogram-border {
+  background: linear-gradient(to right, #818CF8, #A78BFA);
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Skill pills hover glow effect */
+.skill-glow:hover {
+  box-shadow: 0 0 15px -3px rgba(99, 102, 241, 0.4);
+}
+
+.dark .skill-glow:hover {
+  box-shadow: 0 0 15px -3px rgba(129, 140, 248, 0.4);
 }
